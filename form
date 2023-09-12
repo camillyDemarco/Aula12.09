@@ -1,0 +1,120 @@
+package com.example.formulario
+
+import android.os.Bundle
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.setContent
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import com.example.formulario.ui.theme.FormularioTheme
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.text.BasicTextField
+import androidx.compose.material3.*
+import androidx.compose.runtime.*
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.input.TextFieldValue
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.tooling.preview.PreviewParameter
+
+
+class MainActivity : ComponentActivity() {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContent {
+            FormularioTheme {
+                // A surface container using the 'background' color from the theme
+                Surface(
+                    modifier = Modifier.fillMaxSize(),
+                    color = MaterialTheme.colorScheme.background
+                ) {
+
+                }
+            }
+        }
+    }
+}
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+fun FormularioTheme() {
+
+    var nome by remember { mutableStateOf(TextFieldValue()) }
+    var telefone by remember { mutableStateOf(TextFieldValue()) }
+    var origem by remember { mutableStateOf("Telefone Fixo") }
+    var observacao by remember { mutableStateOf(TextFieldValue()) }
+
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(16.dp)
+    ) {
+        TopAppBar(
+            { Text("Formulário") }, Modifier.fillMaxWidth(), )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = nome,
+            onValueChange = { nome = it },
+            label = { Text("Nome") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = telefone,
+            onValueChange = { telefone = it },
+            label = { Text("Telefone") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        DropdownMenu(
+            expanded = false,
+            onDismissRequest = { /* Fechar o menu suspenso */ },
+            modifier = Modifier.fillMaxWidth()
+        ) {}
+
+
+        Text("Origem: $origem", fontSize = 16.sp, modifier = Modifier.padding(8.dp))
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        OutlinedTextField(
+            value = observacao,
+            onValueChange = { observacao = it },
+            label = { Text("Observação") },
+            modifier = Modifier.fillMaxWidth()
+        )
+
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
+            Button(
+                onClick = { /* Ação de cadastrar aqui */ },
+                modifier = Modifier.weight(1f)
+            ) {
+                Text("Cadastrar")
+            }
+
+            Spacer(modifier = Modifier.width(16.dp))
+
+            Button(
+                onClick = { /* Ação de cancelar aqui */ },
+                modifier = Modifier.weight(1f),
+                colors = ButtonDefaults.run { buttonColors(Color.Gray) }
+            ) {
+                Text("Cancelar")
+            }
+        }
+    }
+}
